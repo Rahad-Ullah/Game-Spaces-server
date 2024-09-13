@@ -4,6 +4,7 @@ import { z } from 'zod'
 const createFacilityValidationSchema = z.object({
   body: z.object({
     name: z.string({ required_error: 'Name is required.' }),
+    image: z.string({ required_error: 'Image link is required.' }),
     description: z.string({ required_error: 'Description is required.' }),
     pricePerHour: z.number({ required_error: 'PricePerHour is required.' }),
     location: z.string({ required_error: 'Location is required.' }),
@@ -14,6 +15,7 @@ const createFacilityValidationSchema = z.object({
 const updateFacilityValidationSchema = z.object({
   body: z.object({
     name: z.string({ required_error: 'Name is required.' }).optional(),
+    image: z.string({ required_error: 'Image is required.' }).optional(),
     description: z
       .string({ required_error: 'Description is required.' })
       .optional(),

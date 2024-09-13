@@ -8,6 +8,8 @@ import { getTodaysDate } from './checkAvailability.utils'
 // check Time slots availability
 const checkAvailability: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
+    const facilityId = req.query?.facility as string
+
     const today = getTodaysDate()
     let date = today
 
@@ -16,7 +18,10 @@ const checkAvailability: RequestHandler = catchAsync(
       date = req.query?.date as string
     }
 
-    const result = await CheckAvailabilityServices.checkAvailability(date)
+    const result = await CheckAvailabilityServices.checkAvailability(
+      date,
+      facilityId,
+    )
 
     sendResponse(res, {
       success: true,
