@@ -7,7 +7,12 @@ const app: Application = express()
 
 // parsers
 app.use(express.json())
-app.use(cors())
+app.use(
+  cors({
+    origin: ['http://localhost:5173', 'https://game-spaces.vercel.app'],
+    credentials: true,
+  }),
+)
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Sports Facility Booking Server is running...')
