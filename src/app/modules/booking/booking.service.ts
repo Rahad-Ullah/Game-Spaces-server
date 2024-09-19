@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
 import { JwtPayload } from 'jsonwebtoken'
 import { TBooking } from './booking.interface'
 import { Booking } from './booking.model'
@@ -9,6 +12,9 @@ import {
   isEndTimeBeforeStartTime,
   isTimeSlotAvailable,
 } from './booking.utils'
+import mongoose from 'mongoose'
+import config from '../../config'
+const SSLCommerzPayment = require('sslcommerz-lts')
 
 // create new bookin into DB
 const createBookingIntoDB = async (user: JwtPayload, payload: TBooking) => {
@@ -58,7 +64,61 @@ const createBookingIntoDB = async (user: JwtPayload, payload: TBooking) => {
   // set current user to payload
   payload.user = user._id
 
-  const result = await Booking.create(payload)
+  // generate unique transection id
+  const tran_id = new mongoose.Types.ObjectId().toString()
+
+  // set traxID to payload
+  payload.trxID = tran_id
+
+  // SSL commerz initial data
+  const paymentData = {
+    total_amount: payableAmount,
+    currency: 'USD',
+    tran_id: tran_id, // use unique tran_id for each api call
+    success_url: `${config.server_url}/payment/success/${tran_id}`,
+    fail_url: `${config.server_url}/payment/fail/${tran_id}`,
+    cancel_url: 'http://localhost:3030/cancel',
+    ipn_url: 'http://localhost:3030/ipn',
+    shipping_method: 'Courier',
+    product_name: facilityObj.name,
+    product_category: 'Sports Facility',
+    product_profile: 'general',
+    cus_name: user.name,
+    cus_email: user.email,
+    cus_add1: user.address,
+    cus_add2: user.address,
+    cus_city: user.address,
+    cus_state: 'Dhaka',
+    cus_postcode: '1000',
+    cus_country: 'Bangladesh',
+    cus_phone: user.phone,
+    cus_fax: '01711111111',
+    ship_name: user.name,
+    ship_add1: user.address,
+    ship_add2: user.address,
+    ship_city: user.address,
+    ship_state: 'Dhaka',
+    ship_postcode: 1000,
+    ship_country: 'Bangladesh',
+  }
+
+  // retrieve payment credentials
+  const store_id = config.store_id
+  const store_passwd = config.store_passwd
+  const is_live = false
+
+  // init sslcz
+  const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live)
+  const result = await sslcz.init(paymentData).then((apiResponse: any) => {
+    const GatewayPageURL = apiResponse.GatewayPageURL
+
+    return { url: GatewayPageURL }
+  })
+  // create booking if initialization successful
+  if (result?.url) {
+    await Booking.create(payload)
+  }
+
   return result
 }
 

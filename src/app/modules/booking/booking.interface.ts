@@ -7,6 +7,8 @@ export type TBooking = {
   user: Types.ObjectId
   facility: Types.ObjectId
   payableAmount: number
+  trxID: string
+  paymentStatus: 'paid' | 'unpaid'
   isBooked: 'confirmed' | 'unconfirmed' | 'canceled'
 }
 

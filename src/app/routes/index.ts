@@ -3,6 +3,7 @@ import { AuthRoutes } from '../modules/auth/auth.route'
 import { FacilityRoutes } from '../modules/facility/facility.route'
 import { BookingRoutes } from '../modules/booking/booking.route'
 import { CheckAvailabilityRoutes } from '../modules/checkAvailability/checkAvailability.route'
+import { PaymentRoutes } from '../modules/payment/payment.route'
 
 const router = Router()
 
@@ -22,6 +23,10 @@ const moduleRoutes = [
   {
     path: '/check-availability',
     route: CheckAvailabilityRoutes,
+  },
+  {
+    path: '/payment',
+    route: PaymentRoutes,
   },
 ]
 
