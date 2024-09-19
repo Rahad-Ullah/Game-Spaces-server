@@ -2,7 +2,7 @@ import { Booking } from '../booking/booking.model'
 import { findAvailableTimeSlots } from './checkAvailability.utils'
 
 const checkAvailability = async (date: string, facilityId: string) => {
-  const bookings = await Booking.find({ date, _id: facilityId }).select(
+  const bookings = await Booking.find({ date, facility: facilityId }).select(
     'startTime endTime',
   )
 

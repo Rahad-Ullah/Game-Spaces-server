@@ -5,7 +5,7 @@ import catchAsync from '../../utils/catchAsync'
 import { CheckAvailabilityServices } from './checkAvailability.service'
 import { getTodaysDate } from './checkAvailability.utils'
 
-// check Time slots availability
+// check time slots availability
 const checkAvailability: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const facilityId = req.query?.facility as string
