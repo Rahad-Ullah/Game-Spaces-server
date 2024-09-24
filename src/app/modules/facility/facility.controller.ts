@@ -60,7 +60,7 @@ const getSingleFacility: RequestHandler = catchAsync(
     if (!result) {
       return sendResponse(res, {
         success: false,
-        statusCode: httpStatus.NOT_FOUND,
+        statusCode: httpStatus.OK,
         message: 'No Data Found',
         data: result,
       })
@@ -83,7 +83,7 @@ const getAllFacilities: RequestHandler = catchAsync(
     if (!result.length) {
       return sendResponse(res, {
         success: false,
-        statusCode: httpStatus.NOT_FOUND,
+        statusCode: httpStatus.OK,
         message: 'No Data Found',
         data: result,
       })

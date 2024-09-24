@@ -124,13 +124,18 @@ const createBookingIntoDB = async (user: JwtPayload, payload: TBooking) => {
 
 // retrieve all bookings
 const getAllBookingsFromDB = async () => {
-  const result = await Booking.find().populate('user').populate('facility')
+  const result = await Booking.find()
+    .populate('user')
+    .populate('facility')
+    .sort({ date: -1, startTime: 1 })
   return result
 }
 
 // retrieve bookings by user
 const getBookingsByUserFromDB = async (user: string) => {
-  const result = await Booking.find({ user }).populate('facility')
+  const result = await Booking.find({ user })
+    .sort({ date: -1, startTime: 1 })
+    .populate('facility')
   return result
 }
 

@@ -28,7 +28,7 @@ const getAllBookings: RequestHandler = catchAsync(
     if (!result.length) {
       return sendResponse(res, {
         success: false,
-        statusCode: httpStatus.NOT_FOUND,
+        statusCode: httpStatus.OK,
         message: 'No Data Found',
         data: result,
       })
@@ -53,7 +53,7 @@ const getBookingsByUser: RequestHandler = catchAsync(
     if (!result.length) {
       return sendResponse(res, {
         success: false,
-        statusCode: httpStatus.NOT_FOUND,
+        statusCode: httpStatus.OK,
         message: 'No Data Found',
         data: result,
       })

@@ -60,7 +60,7 @@ const getSingleFacilityFromDB = async (id: string) => {
 
 //  retrieve all facilities from DB
 const getAllFacilitiesFromDB = async () => {
-  const result = await Facility.find()
+  const result = await Facility.find({ isDeleted: false }).sort({ name: 1 })
 
   return result
 }

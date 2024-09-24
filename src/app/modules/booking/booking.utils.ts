@@ -24,8 +24,9 @@ export const calculatePayableAmout = (
   const durationInHours = (end.getTime() - start.getTime()) / (1000 * 60 * 60)
 
   const payableAmount = durationInHours * pricePerHour
+  const roundedPayableAmount = Math.round(payableAmount * 100) / 100
 
-  return payableAmount
+  return roundedPayableAmount
 }
 
 // check time slot available
