@@ -1,12 +1,13 @@
-# Sports Facility Booking Platform
+# Game Spaces Server
 
-The Sports Facility Booking Platform allows users to book sports facilities with ease and provides admins the ability to manage these facilities and bookings.
+The **Game Spaces** allows users to book sports facilities with ease and provides admins the ability to manage these facilities and bookings.
 
 ---
 
- ### [Live Server](https://sports-booking-platform.vercel.app)
+### [Live Server](https://game-spaces-server.vercel.app)
+
 ```console
-https://sports-booking-platform.vercel.app
+https://game-spaces-server.vercel.app
 ```
 
 ## Used Technologies:
@@ -45,14 +46,14 @@ https://sports-booking-platform.vercel.app
   Middleware is implemented to protect routes, ensuring that only authenticated users and admins can access their respective routes.
 
 - **Security:**
-  WT based authentication is implemented to protect routes and ensure that only authorized users and admins can access their respective routes.
+  JWT based authentication is implemented to protect routes and ensure that only authorized users and admins can access their respective routes.
 
 ## How to setup in local computer:
 
 ### Clone the Repository:
 
 ```plain
-git clone https://github.com/Rahad-Ullah/Sports-Facility-Booking-server.git
+git clone https://github.com/Rahad-Ullah/Game-Spaces-server.git
 ```
 
 ### Install Dependencies:
@@ -74,6 +75,8 @@ JWT_ACCESS_SECRET=your_jwt_secret
 JWT_REFRESH_SECRET=your_jwt_secret
 JWT_ACCESS_EXPIRES_IN=1d
 JWT_REFRESH_EXPIRES_IN=365d
+SSLCZ_STORE_ID=your_sslcommerz_id
+SSLCZ_STORE_PASSWORD=your_sslcommerz_password
 ```
 
 ### Run the Application:
@@ -136,6 +139,7 @@ Authorization: Bearer YOUR_JWT_TOKEN
 
 - Endpoint: `PUT /api/facility/:id`
 - Headers:
+
 ```markdown
 Authorization: Bearer YOUR_JWT_TOKEN
 ```
